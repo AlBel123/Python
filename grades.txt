@@ -1,0 +1,12 @@
+mahmood,40,Fail
+john,69,B
+ann,78,A
+yasmin,99,A
+me,50,C
+Andrew,67,B
+Alex,99,A
+Carol,76,A
+Oscar,56,C
+leyla,61,B
+jim,03,Fail
+Liam,49,Fail
