@@ -1,0 +1,571 @@
+# # print("Welcome to the tip calculator")
+
+# # invoice_sum=float(input("Input the sum of the invoice: "))
+# # number_of_people=int(input("Input number of people: "))
+# # tip_percentage=int(input("Do you want to pay 10,12 or 15% tips?: "))
+
+# # share_person=(invoice_sum+invoice_sum/100*tip_percentage)/number_of_people
+
+# # print(f"Each of you should pay {round(share_person,2)}")
+
+
+# # print(len(str(12345)))
+
+# # print("hello"[3]+"hello"[0])
+
+# # print(123_456_789)
+
+# num_char=str(len(input("What is your name? ")))
+# print(f"Your name has {num_char} letters")
+
+# print("your name has "+ str(num_char) + " letters")
+
+# # print(type(num_char))
+# x=18/4
+# print(round(x))
+
+
+#==============================Rollercoaster====================================================================
+
+# print("Welcome to the rolercoaster!")
+# height=int(input("What is your height, cm? "))
+# if height>120:
+#     print("You may use the rollercoaster.")
+#     age=int(input("How old are you? "))
+#     if age <12:
+#         print("Pay $5 for a child ticket")
+#         ticket=5 
+#     elif age<18:
+#         print("Pay $7 for a teenager ticket")
+#         ticket=7
+#     elif age<55 and age>45:
+#         print("Your entrance is free! We have a special promotion for you today...")
+#         ticket=0
+#         fuck=input("Do you want also to take me then? Y/N: ")
+#         fuck=fuck.lower()
+#         if fuck=="y":
+#             preference=input("Do you want my mouth, pussy or butt? m/p/b: ")
+#             if preference=="m":
+#                 print("Yeah. i will swallow it all")
+#             elif preference=="p":
+#                 print("mmm... you will like it")
+#             else:
+#                 print("My tight ass will please you a lot")
+
+#     else:
+#         print("Pay $12 for an adult ticket")
+#         ticket=12
+        
+        
+#     photo=input("Do you want a photo? Y/N: ")
+#     photo=photo.lower()
+#     if photo=="y":
+#         print(f"You need to pay ${ticket+3} for a ticket with photo")
+#     else:
+#         print(f"You need to pay ${ticket} without photo")
+# else:
+#     print("You are too small for that, folk")
+
+
+
+
+#===========  Leap Year ========================================================================
+
+
+# # 🚨 Don't change the code below 👇
+# year = int(input("Which year do you want to check? "))
+# # 🚨 Don't change the code above 👆
+
+# #Write your code below this line 👇
+
+
+# if year%4!=0:
+#     print(f"Year {year} is NOT leap")
+# elif year%100!=0:
+#     print(f"Year {year} is leap")
+# elif year%100==0 and year%400==0:
+#     print(f"Year {year} is leap")
+# else:
+#     print(f"Year {year} is NOT leap")
+
+
+# 🚨 Don't change the code below 👇
+# print("Welcome to Python Pizza Deliveries!")
+# size = input("What size pizza do you want? S, M, or L ")
+# add_pepperoni = input("Do you want pepperoni? Y or N ")
+# extra_cheese = input("Do you want extra cheese? Y or N ")
+# 🚨 Don't change the code above 👆
+
+#Write your code below this line 👇
+# price=0
+# if size=="S":
+#     price=15
+# elif size=="M":
+#     price=20
+# elif size=="L":
+#     price==25
+# else:
+#     print("Choose the pizza size plese")
+
+#     print(f"Pizza {size} at ${price}")
+
+# if add_pepperoni=="Y":
+#     price +=3
+# print(f"Pizza {size} at ${price}")
+
+# if extra_cheese=="Y":
+#     price +=1
+# print(f"Pizza {size} at ${price}")  
+
+# print(f"Your final bill is ${price}")
+
+
+#====================== Love Score  =============================================================================
+
+# # 🚨 Don't change the code below 👇
+# print("Welcome to the Love Calculator!")
+# name1 = input("What is your name? \n")
+# name2 = input("What is their name? \n")
+# # 🚨 Don't change the code above 👆
+
+# #Write your code below this line 👇
+
+
+
+# joint_name=(name1+name2).lower()
+
+# true=joint_name.count("t")+joint_name.count("r")+joint_name.count("u")+joint_name.count("e")
+# love=joint_name.count("l")+joint_name.count("o")+joint_name.count("v")+joint_name.count("e")
+# score=str(true)+str(love)
+# print(type(score))
+
+# if int(score)<10 or int(score)>90:
+#     print(f"Your score is **{score}**, you go together like coke and mentos.")
+# elif int(score)<50 and int(score)>40:
+#     print(f"Your score is **{score}**, you are alright together.")
+# else:
+#     print(f"Your score is **{score}**.")
+
+
+
+
+#=============  Treasure Quest  ===================================================================================================================
+
+
+
+# print('''
+# *******************************************************************************
+#           |                   |                  |                     |
+#  _________|________________.=""_;=.______________|_____________________|_______
+# |                   |  ,-"_,=""     `"=.|                  |
+# |___________________|__"=._o`"-._        `"=.______________|___________________
+#           |                `"=._o`"=._      _`"=._                     |
+#  _________|_____________________:=._o "=._."_.-="'"=.__________________|_______
+# |                   |    __.--" , ; `"=._o." ,-"""-._ ".   |
+# |___________________|_._"  ,. .` ` `` ,  `"-._"-._   ". '__|___________________
+#           |           |o`"=._` , "` `; .". ,  "-._"-._; ;              |
+#  _________|___________| ;`-.o`"=._; ." `     '`."\` . "-._ /_______________|_______
+# |                   | |o;    `"-.o`"=._``  '` " ,__.--o;   |
+# |___________________|_| ;     (#) `-.o `"=.`_.--"_o.-; ;___|___________________
+# ____/______/______/___|o;._    "      `".o|o_.--"    ;o;____/______/______/____
+# /______/______/______/_"=._o--._        ; | ;        ; ;/______/______/______/_
+# ____/______/______/______/__"=._o--._   ;o|o;     _._;o;____/______/______/____
+# /______/______/______/______/____"=._o._; | ;_.--"o.--"_/______/______/______/_
+# ____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
+# /______/______/______/______/______/______/______/______/______/______/_____ /
+# *******************************************************************************
+# ''')
+# print("Welcome to Treasure Island.")
+# print("Your mission is to find the treasure.") 
+
+# #https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Treasure%20Island%20Conditional.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1oDe4ehjWZipYRsVfeAx2HyB7LCQ8_Fvi%26export%3Ddownload
+
+# #Write your code below this line 👇
+# choice=input("Do you go Left or Right? ")
+# choice=choice.lower()
+# if choice=="left":
+#     choice=input("There is a wide river in front of you! Will you Swim or Wait for the boat? ")
+#     if choice=="wait":
+#         choice=input("\nThe boat arrived and take you to the other riverbank. You see 3 doors: Yellow, Red and Green. Which one will you choose? ")
+#         if choice=="red":
+#             print("You Won!")
+#         else:
+#             print("\nBurning room! the flame kills you. Came over!")
+#     else:
+#         print("\nCrocodile attackes you! Game Over")
+
+# else:
+#     print("\nYou dropped down into the hall... Game Over!")
+
+
+#====================== Rock, Paper, Scissors ======================================================================================
+
+
+
+# def gameMenu():
+    
+#     x=0
+#     y=0
+#     while x<3 and y<3:
+#         customerChoice=input("Please make your choice:\n1.Rock\n2.Paper\n3.Scissors\n")
+#         customerChoice=customerChoice.lower()
+#         if customerChoice=="1" or customerChoice=="rock":
+#             print("Player's Choice: Rock")
+#         elif customerChoice=="2" or customerChoice=="paper":
+#             print("\nPlayer's Choice: Paper")
+
+#         elif customerChoice=="3" or customerChoice=="scissors":
+#             print("\nPlayer's choice: Scissors")
+#         else:
+#             print("\nChoice is not valid!\n")
+#             gameMenu()
+         
+#         import random
+#         computerChoice=random.randint(1, 3)
+       
+#         if computerChoice==1:
+#             print("Computer's choice: Rock")
+#         elif computerChoice==2:
+#             print("Computer's choice: Paper")
+#         elif computerChoice==3:
+#             print("Computer's choice: Scissors")
+    
+#         if customerChoice=="1" or customerChoice=="rock": 
+#             if computerChoice==1:
+#                 print("Draw!")
+#             elif computerChoice==2:
+#                 print("Computer wins the round!")
+#                 x=x+1
+#             elif computerChoice==3:
+#                 print("Player wins the round!")
+#                 y=y+1
+                
+#         elif customerChoice=="2" or customerChoice=="paper": 
+#             if computerChoice==1:
+#                 print("Player Wins the round!")
+#                 y=y+1
+#             elif computerChoice==2:
+#                 print("Draw!")   
+#             elif computerChoice==3:
+#                 print("Computer wins the round!")
+#                 x=x+1
+                
+#         elif customerChoice=="3" or customerChoice=="scissors":
+#             if computerChoice==1:
+#                 print("Computer Wins the round!")
+#                 x=x+1
+#             elif computerChoice==2:
+#                 print("Player Wins the round!") 
+#                 y=y+1
+#             elif computerChoice==3:
+#                 print("Draw!")
+
+#         print(f"\nThe score is {x}:{y}\n ")
+#         input("\nPress ENTER key to continue\n")
+#         if x==3:
+#             print("Player wins the Game!\nGame over")
+#         elif y==3:
+#             print("Computer wins the Game!\nGame over")
+        
+# if __name__ == '__main__':
+#     gameMenu()
+
+# import module
+# print(module.pi)
+
+# import random
+# digit=float(random.randint(0,5))
+# print(digit)
+# random_float=random.random()
+# print(random_float*5)
+
+
+# USA=["Montana", "Alaska", "Idaho"]
+# USA[2]="Iowa"
+# USA.append("Washington")
+# print(USA)
+
+
+
+# # Import the random module here
+
+# # Split string method
+# names_string = input("Give me everybody's names, separated by a comma. ")
+# names = names_string.split(", ")
+# # 🚨 Don't change the code above 👆
+
+# #Write your code below this line 👇
+# import random
+# lot=random.randint(0,len(names)-1)
+# print(names[lot])
+
+
+# USA=["Pensylvania", "Washington", "Iowa", "Idaho"]
+# l=len(USA)
+# print(USA)
+# print(l)
+# print(USA[l-1])
+
+
+
+# fruits=["Strawberries", "Peaches", "Pears", "Nectarines", "Apples", "Grapes", "Cherries", "Blueberries"]
+# vegetables=["Spinach", "Mustard", "Green beans"]
+# dirty_dozen=[fruits, vegetables]
+
+# # print(dirty_dozen)
+# print(dirty_dozen[0])
+
+
+
+#========== Hide the Treasure =================================================================
+
+# # 🚨 Don't change the code below 👇
+# row1 = ["⬜️","️⬜️","️⬜️"]
+# row2 = ["⬜️","⬜️","️⬜️"]
+# row3 = ["⬜️️","⬜️️","⬜️️"]
+# map = [row1, row2, row3]
+# print(f"{row1}\n{row2}\n{row3}")
+# position = input("Where do you want to put the treasure? ")
+# # 🚨 Don't change the code above 👆
+
+# #Write your code below this row 👇
+# horizontal=int(position[0])
+# vertical=int(position[1])
+
+# map[vertical-1][horizontal-1]=" X"
+
+# # Write your code above this row 👆
+
+# # 🚨 Don't change the code below 👇
+# print(f"{row1}\n{row2}\n{row3}")
+
+# #========= Rock, Paper, Scissors ============================================================
+
+
+
+# def print_rock():
+#     print('''
+#     _______
+# ---'   ____)
+#       (_____)
+#       (_____)
+#       (____)
+# ---.__(___)
+# ''')
+
+# def print_paper():
+#     print('''
+#     _______
+# ---'   ____)____
+#           ______)
+#           _______)
+#          _______)
+# ---.__________)
+# ''')
+
+# def print_scissors():
+#     print('''
+#     _______
+# ---'   ____)____
+#           ______)
+#        __________)
+#       (____)
+# ---.__(___)
+# ''')
+
+# def gameMenu():
+    
+#     x=0
+#     y=0
+#     while x<3 and y<3:
+#         customerChoice=input("Please make your choice:\n1.Rock\n2.Paper\n3.Scissors\n")
+#         customerChoice=customerChoice.lower()
+#         if customerChoice=="1" or customerChoice=="rock":
+#             print("Player's Choice: Rock")
+#             print_rock()
+#         elif customerChoice=="2" or customerChoice=="paper":
+#             print("\nPlayer's Choice: Paper")
+#             print_paper()
+#         elif customerChoice=="3" or customerChoice=="scissors":
+#             print("\nPlayer's choice: Scissors")
+#             print_scissors()
+#         else:
+#             print("\nChoice is not valid!\n")
+#             gameMenu()
+         
+#         import random
+#         computerChoice=random.randint(1, 3)
+       
+#         if computerChoice==1:
+#             print("Computer's choice: Rock")
+#             print_rock()
+#         elif computerChoice==2:
+#             print("Computer's choice: Paper")
+#             print_paper()
+#         elif computerChoice==3:
+#             print("Computer's choice: Scissors")
+#             print_scissors()
+    
+#         if customerChoice=="1" or customerChoice=="rock": 
+#             if computerChoice==1:
+#                 print("Draw!")
+#             elif computerChoice==2:
+#                 print("Computer wins the round!")
+#                 x=x+1
+#             elif computerChoice==3:
+#                 print("Player wins the round!")
+#                 y=y+1
+                
+#         elif customerChoice=="2" or customerChoice=="paper": 
+#             if computerChoice==1:
+#                 print("Player Wins the round!")
+#                 y=y+1
+#             elif computerChoice==2:
+#                 print("Draw!")   
+#             elif computerChoice==3:
+#                 print("Computer wins the round!")
+#                 x=x+1
+                
+#         elif customerChoice=="3" or customerChoice=="scissors":
+#             if computerChoice==1:
+#                 print("Computer Wins the round!")
+#                 x=x+1
+#             elif computerChoice==2:
+#                 print("Player Wins the round!") 
+#                 y=y+1
+#             elif computerChoice==3:
+#                 print("Draw!")
+
+#         print(f"\nThe score is {x}:{y}\n ")
+#         input("\nPress ENTER key to continue\n")
+#         if x==3:
+#             print("Computer wins the Game!\nGame over")
+#         elif y==3:
+#             print("Player wins the Game!\nGame over")
+        
+# if __name__ == '__main__':
+#     gameMenu()
+
+
+# fruits=["apple", "peach", "pear"]
+# for i in fruits:
+#     print(i)
+
+
+#=============== AVG Score ====================================================================
+
+# # 🚨 Don't change the code below 👇
+# student_heights = input("Input a list of student heights ").split()
+# height=0
+# for n in range(0, len(student_heights)):
+#     student_heights[n] = int(student_heights[n])
+# # 🚨 Don't change the code above 👆
+#     height=height+student_heights[n]
+#     divide_for=n+1
+# height_avg=round(height/divide_for)
+
+# print(height_avg)
+
+#==================== Highest Score ===========================================================
+
+# # 🚨 Don't change the code below 👇
+# student_scores = input("Input a list of student scores ").split()
+# for n in range(0, len(student_scores)):
+#   student_scores[n] = int(student_scores[n])
+# print(student_scores)
+# # 🚨 Don't change the code above 👆
+# max=0
+# for n in range (0, len(student_scores)):
+#   if student_scores[n]>max:
+#     max=student_scores[n]
+# print(max)
+
+# #Write your code below this row 👇
+
+
+#================== SUM all numbers in the list ===========================================
+
+# number=[]
+# sum=0
+# numbers=input("Input the numbers: ").split()
+
+# for i in range(0, len(numbers)):
+#     numbers[i]=int(numbers[i])
+#     sum+=numbers[i]
+# print(numbers)
+# print(sum)
+
+
+#================= SUM of the numbers for the selected MAX =================================
+
+# numbers=[]
+# max_number=int(input("Enter MAX number: "))
+# sum=0
+# min_number=0
+# index=max_number+1
+
+# for i in range (0,index):
+#     numbers.append(i)
+#     sum+=i
+    
+# print(numbers)
+# print(sum)
+
+
+#=============== Sum Odds & Evens ============================================================
+
+
+# numbers=[]
+
+# sum=0
+
+
+# for i in range (2,101,2):
+#     numbers.append(i)
+#     sum+=i
+# print(numbers)
+# print(sum)
+
+
+#============ Fizz Buzz =========================================================================
+
+# for i in range (1,101):
+#     if i%3==0 and i%5==0:
+#         print("FizzBuzz")
+#     elif i%3==0:
+#         print ("Fizz")
+#     elif i%5==0:
+#         print("Buzz")
+#     else:
+#         print(i)
+
+
+#============= Password Generator ================================================================
+
+numbers=[0,1,2,3,4,5,6,7,8,9]
+letters=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", "A", "B","C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+symbols=["!","@","#","$","%","^","&","*","(",")","_","+"]
+password=""
+
+length=int(input("how long should be the paswward? "))
+
+number_digits=int(input("How many letters? "))
+number_letters=int(input("How many digits? "))
+number_symbols=length-number_digits-number_letters
+
+
+for i in range(0, length):
+    import random
+    import math
+    rnd=random.randint(1,3)
+    if rnd==1:
+        i=math.floor(random.random()*len(numbers))
+        password+=str(numbers[i])
+    elif rnd==2:
+        i=math.floor(random.random()*len(letters))
+        password+=str(letters[i])
+    else:
+        i=math.floor(random.random()*len(symbols))
+        password+=str(symbols[i])
+        
+print(password)
