@@ -37,7 +37,13 @@ def black_jack():
     should_continue=True
     while should_continue:
         x=cards_player.count(11)
-        if sum(cards_player)<=21:
+        if sum(cards_player)==21 and len(cards_player)==2 and sum(cards_player)>sum(cards_comp):
+            print(f"You win with Blackjack!\nYour Final Hand is {cards_player} with the Score {sum(cards_player)}\nDealer's Final Hand is {cards_comp} with the Score {sum(cards_comp)}")
+            should_continue=False
+        elif sum(cards_comp)==21 and len(cards_comp)==2:
+            print(f"Dealer wins with Blackjack!\nYour Final Hand is {cards_player} with the Score {sum(cards_player)}\nDealer's Final Hand is {cards_comp} with the Score {sum(cards_comp)}")
+            should_continue=False
+        elif sum(cards_player)<=21:
             take_card=input("\nType 'y' to get another card or 'n' to pass: ")
             if take_card=="n":
                 print(f"\nYour Final Hand is {cards_player} with the Score {sum(cards_player)}\nDealer's Final Hand is {cards_comp} with the Score {sum(cards_comp)}")
