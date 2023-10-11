@@ -1,0 +1,49 @@
+# this part of the program pick the colors from the pictures and forms the List
+# to randomly choose the colors then
+import random
+
+# import colorgram
+#
+# colors_to_choose = 30
+# colors = colorgram.extract("Hirst_Dots.jpg", colors_to_choose)
+#
+# rgb_colors = []
+# for i in range(colors_to_choose):
+#     color = (colors[i].rgb.r, colors[i].rgb.g, colors[i].rgb.b)
+#     rgb_colors.append(color)
+# print(rgb_colors)
+
+import turtle as t
+
+color_list = [(209, 4, 32), (191, 182, 6), (219, 3, 2), (224, 158, 71), (242, 214, 43), (195, 88, 24), (249, 214, 1),
+              (27, 97, 158), (74, 21, 61), (62, 45, 134), (235, 64, 135), (8, 197, 151), (101, 183, 214), (179, 43, 90),
+              (13, 202, 220), (216, 129, 176), (135, 216, 234), (36, 47, 69), (94, 36, 20), (31, 154, 82),
+              (82, 196, 131), (246, 152, 179), (233, 87, 32), (115, 80, 2), (149, 184, 242), (57, 113, 207)]
+
+timmy = t.Turtle()
+screen = t.Screen()
+
+
+# the following function creates 1 line of dots
+def draw_line():
+    for _ in range(10):
+        screen.colormode(255)
+        timmy.dot(20, (random.choice(color_list)))
+        timmy.penup()
+        timmy.forward(50)
+    
+
+timmy.penup()
+timmy.hideturtle()
+x = -250
+y = -220
+timmy.speed("fastest")
+timmy.setpos(x, y)
+
+for _ in range(10):
+    draw_line()
+    timmy.penup()
+    y += 50
+    timmy.setpos(x, y)
+
+screen.exitonclick()
