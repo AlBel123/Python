@@ -1,0 +1,49 @@
+from turtle import Turtle, Screen
+import random
+
+# condition needed to start the race only after the user_bet input and finish it when the 1st tutle reaches finish
+is_race_on = False
+screen = Screen()
+screen.setup(width=500, height=400)
+
+# Input the user_bet
+user_bet = screen.textinput("Make your bet", "Which turtle do you expect to win? Enter the colour: ")
+
+# Here I create the list of turtles' colours and initial coordinates to start the race for the 1st turtle
+colors = ["red", "orange", "yellow", "green", "blue", "violet"]
+x = -230
+y = -130
+
+# I create the empty list of the turtles to be appended after turtles creation one by one
+my_turtle_list = []
+
+# Turtles creation and starting position for each.
+for i in range(0, 6):
+    color = colors[i]
+    new_turtle = Turtle(shape="turtle")
+    my_turtle_list.append(new_turtle)
+    new_turtle.color(color)
+    new_turtle.penup()
+    new_turtle.goto((x, y))
+    y += 50
+
+# Start of the race ONLY when user makes his choice
+if user_bet:
+    is_race_on = True
+
+# Race and winning conditions
+while is_race_on:
+    for turtle in my_turtle_list:
+        if turtle.xcor() > 230:
+            is_race_on = False
+            winner = turtle.pencolor()
+            print(f"{winner} turtle comes first!")
+            if winner == user_bet:
+                print("You win!")
+            else:
+                print("You lost...")
+        else:
+            random_distance = random.randint(0, 10)
+            turtle.forward(random_distance)
+
+screen.exitonclick()
