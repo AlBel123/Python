@@ -27,23 +27,40 @@ for i in range(0, 6):
     new_turtle.goto((x, y))
     y += 50
 
+# The list of the Winners will be needed to indicate the winners if several turtles come to finish simultaneously.
+# We will use it also to indicate the one and only winning turtle if only one wins and compare it to the user's bet
+
+winners = []
 # Start of the race ONLY when user makes his choice
 if user_bet:
     is_race_on = True
 
+
 # Race and winning conditions
 while is_race_on:
     for turtle in my_turtle_list:
-        if turtle.xcor() > 230:
+        if turtle.xcor() > 240:
             is_race_on = False
-            winner = turtle.pencolor()
-            print(f"{winner} turtle comes first!")
-            if winner == user_bet:
-                print("You win!")
-            else:
-                print("You lost...")
+            winners.append(turtle.pencolor())
         else:
             random_distance = random.randint(0, 10)
             turtle.forward(random_distance)
 
+# this part of the program allows to define the winner if One or Several turtles finish first
+
+if len(winners) > 1:
+    if user_bet in winners:
+        print(f"The {user_bet} turtle comes one of the firsts and shares the victory with other {len(winners)-1} "
+              f"turtles!\n"
+              f" You win!")
+    else:
+        print(f"You lost! The winners are the following turtles: ")
+        for win_turtle in range(0, len(winners)):
+            print(winners[win_turtle])
+else:
+    print(f"The {winners[0]} turtle comes first!")
+    if winners[0] == user_bet:
+        print("You win!")
+    else:
+        print("You lost...")
 screen.exitonclick()
