@@ -16,7 +16,7 @@ class Snake:
         self.head = self.snake_list[0]
 
     def create_snake(self):
-        # 3 -segments snake creation and starting position setting. Option 2
+        # 3 -segments snake creation and starting position setting
         for position in STARTING_POSITION:
             self.add_segment(position)
 
