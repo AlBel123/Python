@@ -26,10 +26,7 @@ answer_state = screen.textinput(title="Guess a State", prompt="What is another s
 
 while len(correct_answers) < 50:
     if answer_state == "Exit":
-        for state in states_list:
-            if state not in correct_answers:
-                states_to_learn.append(state)
-        print(len(states_to_learn))
+        states_to_learn = [state for state in states_list if state not in correct_answers]
         with open("states_to_learn.csv", mode="w") as to_learn:
             to_learn.write(f'You have {len(states_to_learn)} states to learn.\nHere they are: {states_to_learn}')
         break
