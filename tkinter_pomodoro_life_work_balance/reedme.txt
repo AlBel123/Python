@@ -1,0 +1,14 @@
+Pomodoro App is based on the famous Pomodoro Technique by Franchesco Cirillo.
+It allows to use the brain most efficiently. 
+
+The sense of it is in the splitting of work for a smaller tasks and time pieces:
+25 min work
+5 min break
+25 min work
+5 min break
+25 min work
+5 min break
+25 min work
+20 min min break
+
+Enjoy and work even more efficiently!
