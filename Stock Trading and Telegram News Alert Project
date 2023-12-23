@@ -1,0 +1,88 @@
+###
+The user inputs the Stock name and the actual Company name. As well as his API keys for www.alphavantage.co, newsapi.org and Telegram chat ID. 
+The program shows the closing price of the bonds for yesterday and its delta compared to the previous day. It also picks up the most popular news about the company from yesterday. 
+Bot sends all this information to the defined Telegram chat.
+###
+
+
+
+
+import requests
+import datetime as dt
+
+STOCK = "AMZN"
+COMPANY_NAME = "Amazon"
+api_key = "ENTER YOUR API KEY HERE"
+interval_min = 60
+
+now = dt.datetime.now()
+yesterday = now.day - 1
+before_yesterday = now.day - 2
+
+stock_params = {
+    "function": "TIME_SERIES_INTRADAY",
+    "interval":interval_min,
+    "symbol": STOCK,
+    "apikey": api_key,
+
+}
+
+
+news_api_key = "ENTER YOUR API KEY HERE"
+news_params = {
+    "q":COMPANY_NAME,
+    "apiKey":news_api_key,
+
+}
+
+bot_access_token = "ENTER YOUR TELEGRAM BOT ACCESS TOKEN HERE"
+
+
+def get_stock_delta():
+    url_stock = "https://www.alphavantage.co/query"
+
+    r = requests.get(url_stock, params=stock_params)
+    data = r.json()
+    print(data)
+
+    yesterday_closing = float(data["Time Series (60)"][f"2023-12-{yesterday} 19:00:00"]["4. close"])
+    before_yesterday_closing = float(data["Time Series (60)"][f"2023-12-{before_yesterday} 19:00:00"]["4. close"])
+
+    delta_percent = round((yesterday_closing / before_yesterday_closing * 100 - 100), 2)
+    
+    if delta_percent > 0:
+        return f"🔺{delta_percent}%\n\nClosing price yesterday for {COMPANY_NAME} is {yesterday_closing}\nClosing price the day before yesterday for {COMPANY_NAME} is {before_yesterday_closing}"
+    elif delta_percent < 0:
+        return f"🔻{delta_percent}%\n\nClosing price yesterday for {COMPANY_NAME} is {yesterday_closing}\nClosing price the day before yesterday for {COMPANY_NAME} is {before_yesterday_closing}"
+    else:
+        return f"{delta_percent}%\n\nClosing price yesterday for {COMPANY_NAME} is {yesterday_closing}\nClosing price the day before yesterday for {COMPANY_NAME} is {before_yesterday_closing}"
+
+
+def get_news():
+    url_news = f'https://newsapi.org/v2/top-headlines'
+    r_news = requests.get(url_news, params=news_params)
+    data_news = r_news.json()
+
+    headlines_list = []
+    n = 0
+    while n < 3:
+        headlines_list.append((f"{data_news["articles"][n]["title"]} at {data_news["articles"][n]["url"]}"))
+        # print(f"Headline: {data_news["articles"][n]["title"]} at {data_news["articles"][n]["url_news"]}\n")
+        n += 1
+    return headlines_list
+
+
+def send_message_test(bot_message):
+    my_chat_id = "ENTER YOUR TELEGRAM CHAT ID HERE"
+    send_text = f"https://api.telegram.org/bot{bot_access_token}/sendMessage?chat_id={my_chat_id}&parse_mode=Markdown&text={bot_message}"
+    response = requests.get(send_text)
+    return response.json()
+
+
+sent_text = send_message_test(
+    f""" 
+    {STOCK} ({COMPANY_NAME}):\n\n {get_stock_delta()}\n\n\nMain News:\n\n{get_news()[0]}\n\n{get_news()[1]}\n\n{get_news()[2]}
+    """
+)
+
+
