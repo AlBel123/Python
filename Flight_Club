@@ -1,0 +1,134 @@
+###
+technologies used: telegram bot, smtplib, environmental variables, sheety.api, tequila.api, telegram.api
+This program is meant to track the best flight deals.
+The customers form a sheet in google.docs indicating the departure airport, currency, list of destination cities/airports and price limit. As soon as the price for a flight gets below the indicated limit, the program sends notification to all the customers via email 
+###
+
+import datetime as dt
+import requests
+import smtplib
+import os
+
+bot_access_token = os.environ.get('bot_access_token')
+API_KEY = os.environ.get('API_KEY')  # API key for Tequila
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+SHEETY_CODE = os.environ.get('SHEETY_CODE')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+
+DEP_FROM = "GLA"
+
+
+def send_message(bot_message):
+    my_chat_id = TELEGRAM_CHAT_ID
+    send_text = f"https://api.telegram.org/bot{bot_access_token}/sendMessage?chat_id={my_chat_id}&parse_mode=Markdown&text={bot_message}"
+    response_bot = requests.get(send_text)
+    return response_bot.json()
+
+
+emails_list = []
+response_emails = requests.get(url=f"https://api.sheety.co/{SHEETY_CODE}/flightDeals/users")
+sheet_data_users = response_emails.json()
+for item in range(0, len(sheet_data_users['users'])):
+    email = sheet_data_users['users'][item]['email']
+    emails_list.append(email)
+print(emails_list)
+
+
+def send_email(bot_message):
+    my_email = SENDER_EMAIL
+    password = EMAIL_PASSWORD
+    for n in range(0, len(emails_list)):
+        with smtplib.SMTP("smtp.gmail.com") as connection:
+            # Making connection secure by coding the message for the transportation
+            connection.starttls()
+            connection.login(user=my_email, password=password)
+            connection.sendmail(
+                from_addr=my_email,
+                to_addrs=emails_list[n],
+                msg=f"Subject: New Flight Deals! \n\n{bot_message}"
+            )
+
+
+response = requests.get(url=f"https://api.sheety.co/{SHEETY_CODE}/flightDeals/prices")
+sheet_data = response.json()
+# pprint(sheet_data)
+
+for item in range(0, len(sheet_data['prices'])):
+    destination = sheet_data['prices'][item]['iataCode']
+    max_price = sheet_data['prices'][item]['maxPrice']
+
+    today = dt.datetime.now()
+    tomorrow = dt.date.today() + dt.timedelta(days=1)
+    end_date = tomorrow + dt.timedelta(days=185)
+    tomorrow_formatted = tomorrow.strftime("%d/%m/%Y")
+    end_date_formatted = end_date.strftime("%d/%m/%Y")
+
+    # This class is responsible for talking to the Flight Search API.
+
+    end_point = "https://api.tequila.kiwi.com/v2"
+    search_endpoint = f"{end_point}/search"
+    params = {
+        "fly_from": DEP_FROM,
+        "fly_to": destination,
+        "curr": "GBP",
+        "price_to": max_price,
+        "date_from": tomorrow_formatted,
+        "date_to": end_date_formatted,
+        "nights_in_dst_from": 0,
+        "nights_in_dst_to": 2,
+        "max_stopovers": 1,
+        # "limit": 1,
+
+    }
+
+    headers = {
+        "apikey": API_KEY,
+    }
+
+    search_response = requests.get(url=search_endpoint, params=params, headers=headers)
+    # print(search_response.text)
+    list_results = search_response.json()["data"]
+
+    if len(list_results) > 0:
+        # print("There are the following option(s) matching your range set: ")
+        for n in range(0, len(list_results)):
+            send_message(
+                f"{list_results[n]["cityTo"]}: {list_results[n]["price"]} {search_response.json()['currency']} "
+                f"\n\tDep: {list_results[n]["route"][0]["local_departure"][0:10]} at {list_results[n]["route"][0]["local_departure"][11:16]}."
+                f"\n\tRtrn: {list_results[n]["route"][1]["local_departure"][0:10]} at {list_results[n]["route"][1]["local_departure"][11:16]}.\n"
+            )
+            send_email(
+                f"{list_results[n]["cityTo"]}: {list_results[n]["price"]} {search_response.json()['currency']} "
+                f"\n\tDep: {list_results[n]["route"][0]["local_departure"][0:10]} at {list_results[n]["route"][0]["local_departure"][11:16]}."
+                f"\n\tRtrn: {list_results[n]["route"][1]["local_departure"][0:10]} at {list_results[n]["route"][1]["local_departure"][11:16]}.\n"
+            )
+
+#
+# print("Welcome to the Flight CLub!\nWe find the best flight deals and email them to you")
+# first_name = input("What is your First Name?\n")
+# surname = input("What is your Second Name\n")
+# should_check = True
+# while should_check:
+#     email1 = input("What is your email?\n")
+#     email2 = input("Enter your email again:\n")
+#     if email2 == email1:
+#         should_check = False
+#
+# sheety_endpoint = f'https://api.sheety.co/{SHEETY_CODE}/flightDeals/users'
+#
+# sheety_params = {
+#     "user": {
+#         "firstName": first_name.title(),
+#         "lastName": surname.title(),
+#         "email": email1,
+#         }
+# }
+#
+# headers = {
+#     "Content-Type": "application/json",
+# }
+#
+# response_post = requests.post(url=sheety_endpoint, json=sheety_params, headers=headers)
+# response_post.raise_for_status()
+# print(response_post)
