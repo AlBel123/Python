@@ -1,0 +1,32 @@
+from bs4 import BeautifulSoup
+import requests
+
+# I get the url for Scraping
+response = requests.get("https://news.ycombinator.com/news")
+yc_web_page = response.text
+soup = BeautifulSoup(yc_web_page, features="html.parser")
+
+
+# I create the lists for Article title, Links and Upvote number and populate them scarping from the url
+articles_list = []
+links_list = []
+articles = soup.select(selector=".titleline a")
+
+for item in articles:
+    if not item.find(name="span"):
+        articles_list.append(item.getText())
+        links_list.append(item.get("href"))
+
+article_upvote = []
+for score in soup.find_all(name="span", class_="score"):
+    number = int(score.getText()[0:-7])
+    article_upvote.append(number)
+#
+# print(articles_list, links_list, article_upvote)
+
+# I define the max Upvote and its index
+top_upvote = max(article_upvote)
+max_index = article_upvote.index(top_upvote)
+
+# I use the index defined to find out the most popular Article and its link form the corresponding lists
+print(f"Top article is '{articles_list[max_index]}' at {links_list[max_index]} with {top_upvote} votes")
