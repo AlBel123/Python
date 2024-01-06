@@ -1,0 +1,37 @@
+"""
+Application name: Using Selenium for online Forms Fill-Up
+
+Application Type: Selenium Utilization
+
+Data of work start: 03 Jan 2024
+
+Work finished: 03 Jan 2024
+
+Application description:
+The application allows to use Selenium in Python to automatically fill-up the online forms without going to the website.
+"""
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach", True)
+
+driver = webdriver.Chrome(options=options)
+driver.get("https://secure-retreat-92358.herokuapp.com/")
+
+# define the fields to fill up
+fname = driver.find_element(By.NAME, value="fName")
+lname = driver.find_element(By.NAME, value="lName")
+email = driver.find_element(By.NAME, value="email")
+submit_button = driver.find_element(By.CSS_SELECTOR, value=".form-signin button")
+
+# Fill up the filed and submit the form
+fname.send_keys("Eddie")
+lname.send_keys("Murphy")
+email.send_keys("e.murphy@domain.com")
+submit_button.click()
+
+
+# driver.quit()
