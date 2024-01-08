@@ -1,0 +1,79 @@
+"""
+Application name: Automatic Data Entry to Forms using Selenium & Beautiful Soup
+
+Technologies used: Selenium, Beautiful Soup. Google Forms
+
+Application Type: Selenium and Beautiful Soup Utilization
+
+Data of work start: 07 Jan 2024
+
+Work finished: 08 Jan 2024
+
+Application description:
+The application is meant to support the user in data entry to the forms and minimize hand work. 
+It scrapes the needed information from the target page with Beautiful Soup, forming the corresponding data lists, 
+and upload the items one by one to the dedicated Google Form. 
+
+Then user may create google doc or use the obtained data as needed.   
+"""
+
+from bs4 import BeautifulSoup
+import requests
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+
+# ===== Part 1: Using BeautifulSoup scraping the needed information from dedicated website ==========================
+
+rental_url = 'https://appbrewery.github.io/Zillow-Clone/'
+response = requests.get(rental_url)
+rental_page = response.text
+soup = BeautifulSoup(rental_page, features="html.parser")
+
+# Create the list of all Links
+links = soup.select(selector='.StyledPropertyCardPhotoBody a')
+links_list = [link['href'] for link in links]
+
+# Create the list of all Prices
+prices = soup.find_all(name="span", class_="PropertyCardWrapper__StyledPriceLine")
+prices_list = [price.get_text().strip("+,/mo, 1 bd") for price in prices]
+
+# Create the list of all Addresses
+table = str.maketrans('|', ' ') # Apply the translation to a string to delete symbol "|"
+addresses = soup.find_all(name="address")
+addresses_list = [address.get_text().translate(table).strip("\n |") for address in addresses]
+
+
+# ======= Part 2: Using Selenium to fill up the Google Form created earlier ===========================================
+
+form_url = 'https://docs.google.com/forms/d/e/1FAIpQLSewxP0zPfGnuvmVJoamY42RryjRevvnIvT5NmDjYuyyN1I7UA/viewform?usp=sf_link'
+
+options = webdriver.ChromeOptions()
+options.add_experimental_option("detach", True)
+options.add_argument("start-maximized")
+driver = webdriver.Chrome(options=options)
+driver.get(form_url)
+
+# For every item in address_list input Address, Price and Ling to the form and press Submit
+for index in range(0, len(addresses_list)-1):
+    # Getting the XPATH for the entry fields in Google Form
+    entry_address = driver.find_element(By.XPATH,
+                                        value='//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    entry_price = driver.find_element(By.XPATH,
+                                      value='//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    entry_link = driver.find_element(By.XPATH,
+                                     value='//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    submit = driver.find_element(By.XPATH, value='//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div')
+
+    # Input and Submit data
+    entry_address.send_keys(addresses_list[index])
+    entry_price.send_keys(prices_list[index])
+    entry_link.send_keys(links_list[index])
+    submit.click()
+
+    # Restart the form
+    repeat_form = driver.find_element(By.XPATH, value='/html/body/div[1]/div[2]/div[1]/div/div[4]/a')
+    repeat_form.click()
+
+driver.quit()
+
